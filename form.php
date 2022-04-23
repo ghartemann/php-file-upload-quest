@@ -36,14 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $uploadFile = $uploadDir . uniqid($prefix = $nameForFile, $more_entropy = true) . "_" . basename($_FILES['avatar']['name']);
         move_uploaded_file($_FILES['avatar']['tmp_name'], $uploadFile);
     }
-
-    // ------------- DELETION
-    if (isset($_POST["delete"]) && $uploadFile != $defaultPicture) {
-        if (file_exists($uploadFile)) {
-            unlink($uploadFile);
-        }
-        header("Location: /form.php");
-    }
 }
 
 ?>
@@ -71,13 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="card-body">
                 <h3 class="card-title">Name: <?= $name ?></h3>
             </div>
-            <?php if ($uploadFile != $defaultPicture) { ?>
-                <div class="position-absolute top-100 start-50 translate-middle">
-                    <form method="post">
-                        <button class="btn btn-primary" name="delete">Delete picture</button>
-                    </form>
-                </div>
-            <?php } ?>
         </div>
     </section>
     <section>
